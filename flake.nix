@@ -106,6 +106,8 @@
           hosts = {
             /* set host specific properties here */
             NixOS = { };
+            drpyser-thinkpad = {
+            };
           };
           importables = rec {
             profiles = digga.lib.rakeLeaves ./profiles // {

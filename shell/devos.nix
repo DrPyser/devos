@@ -43,6 +43,7 @@ in
     (linter editorconfig-checker)
     # (docs python3Packages.grip) too many deps
     (docs mdbook)
+    (docs manix)
     (devos inputs.deploy.packages.${pkgs.system}.deploy-rs)
   ]
   ++ lib.optional

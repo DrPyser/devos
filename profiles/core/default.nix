@@ -18,6 +18,7 @@ in
 
     # Selection of sysadmin tools that can come in handy
     systemPackages = with pkgs; [
+      dash
       binutils
       coreutils
       curl
@@ -108,14 +109,27 @@ in
         jtl = "journalctl";
 
       };
+    variables = {
+      TERM = "xterm-256color";
+      # perhaps better set this in user session variables
+      AGENDA = "~/.agenda.org";
+      AGENDACMD = "kak -s agenda ${config.environment.variables.AGENDA}";
+      };
+    binsh = "${pkgs.dash}/bin/dash";
   };
 
   fonts = {
-    fonts = with pkgs; [ powerline-fonts dejavu_fonts ];
+    # TODO install nerdfonts e.g. FiraCode
+    fonts = with pkgs; [
+      powerline-fonts dejavu_fonts
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "DroidSansMono" ];
+      })
+    ];
 
     fontconfig.defaultFonts = {
 
-      monospace = [ "DejaVu Sans Mono for Powerline" ];
+      monospace = [ "FuraCode Nerd Font Mono" ];
 
       sansSerif = [ "DejaVu Sans" ];
 
@@ -144,6 +158,35 @@ in
     '';
 
   };
+  # TODO configure fish shell here
+  programs.fish = {
+    programs.fish.enable = true;
+    programs.fish.vendor.config.enable = true;
+    programs.fish.vendor.completions.enable = true;
+    programs.fish.vendor.functions.enable = true;
+    interactiveShellInit = ''
+      direnv hook fish | source
+      any-nix-shell fish | source
+    '';
+    loginShellInit = ''
+      # log into default tmux session
+      if not set -q TMUX
+        # replace login shell with tmux session
+        exec tmux new -t login -A -s login\; \
+        neww -t login:agenda -S -n agenda $AGENDACMD
+      end
+    '';
+    promptInit = ''
+    set -l nix_shell_info (
+      if test -n "$IN_NIX_SHELL"
+        echo -n "<nix-shell> "
+      end
+    )
+    set_color normal
+    echo -n -s "$nix_shell_info ~>"
+    starship init fish | source
+  '';
+  };
 
   programs.bash = {
     # Enable starship
@@ -155,6 +198,8 @@ in
       eval "$(${pkgs.direnv}/bin/direnv hook bash)"
     '';
   };
+
+  # tmux config here?
 
   # Service that makes Out of Memory Killer more effective
   services.earlyoom.enable = true;
