@@ -1,0 +1,36 @@
+[submodule "users/drpyser/kak/plugins/https:/github.com/andreyorst/base16-gruvbox.kak"]
+	path = users/drpyser/kak/plugins/https:/github.com/andreyorst/base16-gruvbox.kak
+	url = https://github.com/alexherbo2/git.kak
+[submodule "users/drpyser/kak/plugins/https:/github.com/andreyorst/smarttab.kak"]
+	path = users/drpyser/kak/plugins/https:/github.com/andreyorst/smarttab.kak
+	url = https://github.com/alexherbo2/git.kak
+[submodule "users/drpyser/kak/plugins/git.kak"]
+	path = users/drpyser/kak/plugins/git.kak
+	url = https://github.com/alexherbo2/git.kak
+[submodule "users/drpyser/kak/plugins/surround.kak"]
+	path = users/drpyser/kak/plugins/surround.kak
+	url = https://github.com/alexherbo2/surround.kak
+[submodule "users/drpyser/kak/plugins/fzf.kak"]
+	path = users/drpyser/kak/plugins/fzf.kak
+	url = https://github.com/andreyorst/fzf.kak
+[submodule "users/drpyser/kak/plugins/base16-gruvbox.kak"]
+	path = users/drpyser/kak/plugins/base16-gruvbox.kak
+	url = https://github.com/andreyorst/base16-gruvbox.kak
+[submodule "users/drpyser/kak/plugins/kak-lsp"]
+	path = users/drpyser/kak/plugins/kak-lsp
+	url = https://github.com/kak-lsp/kak-lsp
+[submodule "users/drpyser/kak/plugins/auto-pairs.kak"]
+	path = users/drpyser/kak/plugins/auto-pairs.kak
+	url = git@github.com:alexherbo2/auto-pairs.kak
+[submodule "users/drpyser/kak/plugins/plug.kak"]
+	path = users/drpyser/kak/plugins/plug.kak
+	url = https://github.com/andreyorst/plug.kak.git
+[submodule "users/drpyser/kak/plugins/tmux.kak"]
+	path = users/drpyser/kak/plugins/tmux.kak
+	url = https://github.com/alexherbo2/tmux.kak
+[submodule "users/drpyser/kak/plugins/smarttab.kak"]
+	path = users/drpyser/kak/plugins/smarttab.kak
+	url = https://github.com/andreyorst/smarttab.kak
+[submodule "users/drpyser/kak/plugins/kak-ansi"]
+	path = users/drpyser/kak/plugins/kak-ansi
+	url = https://github.com/eraserhd/kak-ansi

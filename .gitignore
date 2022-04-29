@@ -8,3 +8,6 @@ iso
 doi
 
 pkgs/_sources/.shake*
+
+# submodules files
+users/drpyser/kak/plugins/*/**
