@@ -1,6 +1,7 @@
 result
 .direnv
 doc/index.html
+*.bak
 
 # Result of bud commands
 vm

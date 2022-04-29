@@ -41,6 +41,8 @@ in
       usbutils
       utillinux
       whois
+      # editor
+      kakoune
     ];
 
     # Starship is a fast and featureful shell prompt
@@ -112,16 +114,18 @@ in
     variables = {
       TERM = "xterm-256color";
       # perhaps better set this in user session variables
+      EDITOR = "${pkgs.kakoune}/bin/kak";
       AGENDA = "~/.agenda.org";
-      AGENDACMD = "kak -s agenda ${config.environment.variables.AGENDA}";
-      };
+      # AGENDACMD = "${pkgs.kakoune}/bin/kak -s agenda ${config.environment.variables.AGENDA}";
+    };
     binsh = "${pkgs.dash}/bin/dash";
   };
 
   fonts = {
     # TODO install nerdfonts e.g. FiraCode
     fonts = with pkgs; [
-      powerline-fonts dejavu_fonts
+      powerline-fonts
+      dejavu_fonts
       (nerdfonts.override {
         fonts = [ "FiraCode" "DroidSansMono" ];
       })
@@ -158,12 +162,11 @@ in
     '';
 
   };
-  # TODO configure fish shell here
   programs.fish = {
-    programs.fish.enable = true;
-    programs.fish.vendor.config.enable = true;
-    programs.fish.vendor.completions.enable = true;
-    programs.fish.vendor.functions.enable = true;
+    enable = true;
+    vendor.config.enable = true;
+    vendor.completions.enable = true;
+    vendor.functions.enable = true;
     interactiveShellInit = ''
       direnv hook fish | source
       any-nix-shell fish | source
@@ -177,15 +180,15 @@ in
       end
     '';
     promptInit = ''
-    set -l nix_shell_info (
-      if test -n "$IN_NIX_SHELL"
-        echo -n "<nix-shell> "
-      end
-    )
-    set_color normal
-    echo -n -s "$nix_shell_info ~>"
-    starship init fish | source
-  '';
+      set -l nix_shell_info (
+        if test -n "$IN_NIX_SHELL"
+          echo -n "<nix-shell> "
+        end
+      )
+      set_color normal
+      echo -n -s "$nix_shell_info ~>"
+      starship init fish | source
+    '';
   };
 
   programs.bash = {

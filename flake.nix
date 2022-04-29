@@ -61,6 +61,7 @@
       {
         inherit self inputs;
 
+        supportedSystems = [ "x86_64-linux" ];
         channelsConfig = { allowUnfree = true; };
 
         channels = {
@@ -106,8 +107,7 @@
           hosts = {
             /* set host specific properties here */
             NixOS = { };
-            drpyser-thinkpad = {
-            };
+            drpyser-thinkpad = { };
           };
           importables = rec {
             profiles = digga.lib.rakeLeaves ./profiles // {
@@ -115,6 +115,7 @@
             };
             suites = with profiles; rec {
               base = [ core users.nixos users.root ];
+              laptop = base ++ [ graphical.i3 mandb users.drpyser ];
             };
           };
         };
@@ -126,10 +127,14 @@
             profiles = digga.lib.rakeLeaves ./users/profiles;
             suites = with profiles; rec {
               base = [ direnv git ];
+              personal = base;
             };
           };
           users = {
+            # default system user
             nixos = { suites, ... }: { imports = suites.base; };
+            # personal user
+            drpyser = { suites, ... }: { imports = suites.personal ++ [ ./users/drpyser/home.nix ]; };
           }; # digga.lib.importers.rakeLeaves ./users/hm;
         };
 
@@ -139,6 +144,5 @@
 
         deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
 
-      }
-  ;
+      };
 }

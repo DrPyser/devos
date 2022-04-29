@@ -1,4 +1,4 @@
-{ pkgs, extraModulesPath, inputs, ... }:
+{ self, pkgs, extraModulesPath, inputs, channels, ... }:
 let
 
   hooks = import ./hooks;
@@ -31,8 +31,9 @@ in
   '');
 
   commands = with pkgs; [
-    (devos nixUnstable)
+    (devos nix)
     (devos agenix)
+    (devos rage)
     {
       category = "devos";
       name = pkgs.nvfetcher-bin.pname;
