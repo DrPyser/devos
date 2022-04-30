@@ -34,3 +34,6 @@
 [submodule "users/drpyser/kak/plugins/kak-ansi"]
 	path = users/drpyser/kak/plugins/kak-ansi
 	url = https://github.com/eraserhd/kak-ansi
+[submodule "users/drpyser/kak/plugins/plug.kak.git"]
+	path = users/drpyser/kak/plugins/plug.kak.git
+	url = https://github.com/andreyorst/plug.kak.git

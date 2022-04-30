@@ -9,6 +9,7 @@
 # Key mappings
 # Hooks
 try %{ source "%val{runtime}/autoload/plugins/plug.kak/rc/plug.kak" }
+try %{ source "%val{runtime}/rc/filetypes/nix.kak" }
 
 plug "andreyorst/plug.kak" noload
 
@@ -165,7 +166,7 @@ def -override mkdir %{
 
 def -override ide -params 1 %{
   rename-session %arg{1}
-  
+
   set-option global jumpclient main
   set-option global toolsclient tools
   set-option global docsclient docs
@@ -203,22 +204,24 @@ def -override edit_config %{
 def -override pager %{
   set-option buffer readonly true
 }
+
+
 plug "andreyorst/powerline.kak" defer powerline_gruvbox %{
-      powerline-theme gruvbox
+  powerline-theme gruvbox
 } config %{
-      powerline-start
+  powerline-start
 }
 
 define-command -override spawn -params 2 %{
   evaluate-commands %sh{
-     # Create a temporary fifo for communication
-     output=$(mktemp -d -t kak-temp-XXXXXXXX)/fifo
-     mkfifo $${output}
-     # run command detached from the shell
-     { $kak_arg_2 > $${output} } > /dev/null < /dev/null &
-     # Open the file in Kakoune and add a hook to remove the fifo
-     echo "edit! -fifo $${output} $kak_arg_1
-           hook buffer BufClose .* %{ nop %sh{ rm -r $(dirname $${output})} }"
+    # Create a temporary fifo for communication
+    output=$(mktemp -d -t kak-temp-XXXXXXXX)/fifo
+    mkfifo $${output}
+    # run command detached from the shell
+    { $kak_arg_2 > $${output} } > /dev/null < /dev/null &
+    # Open the file in Kakoune and add a hook to remove the fifo
+    echo "edit! -fifo $${output} $kak_arg_1"
+    echo "hook buffer BufClose .* %{ nop %sh{ rm -r $(dirname $${output})} }"
   }
 }
 
