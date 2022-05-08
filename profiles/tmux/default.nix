@@ -67,7 +67,7 @@ in
     environment = {
       TMUX_CONF = "/etc/tmux.conf";
       SHELL = "${pkgs.fish}/bin/fish";
-      TMUX_LOGIN_CONF = builtins.tostring ./login.conf;
+      TMUX_LOGIN_CONF = builtins.toString ./login.conf;
     };
     reload = ''
       ${pkgs.tmux}/bin/tmux source-file $${TMUX_CONF}
