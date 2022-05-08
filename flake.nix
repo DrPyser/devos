@@ -115,7 +115,7 @@
             };
             suites = with profiles; rec {
               base = [ core users.nixos users.root ];
-              laptop = base ++ [ graphical.i3 mandb users.drpyser ];
+              laptop = base ++ [ graphical.i3 mandb users.drpyser tmux ];
             };
           };
         };

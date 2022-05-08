@@ -3,7 +3,7 @@
 { self, config, lib, pkgs, ... }:
 {
 
-  # wm-independent configuration/overrides
+  environment.pathsToLink = [ "/libexec" ];
 
   # Xorg configuration
   services.xserver.enable = true;
@@ -21,26 +21,19 @@
   services.xserver.libinput.enable = true;
 
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.windowManager.i3.enable = true;
+  services.xserver.windowManager.i3 = {
+    enable = true;
+    extraPackages = with pkgs; [
+      dmenu
+      i3status
+      i3lock
+      xdotool
+      dunst
+      libnotify
+      i3blocks
+      xsel
+      light
+    ];
+  };
   services.xserver.displayManager.defaultSession = "none+i3";
-
-  environment.systemPackages = [
-    # graphical prompt/selector
-    pkgs.dmenu
-
-    # clipboard manager
-    pkgs.xsel
-    # misc xorg tool
-    pkgs.xdotool
-
-    # notification daemon
-    pkgs.libnotify
-    pkgs.dunst
-
-    pkgs.i3
-
-    # status bar
-    pkgs.i3blocks
-  ];
-
 }

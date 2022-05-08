@@ -1,5 +1,27 @@
-[aws]
-symbol = " "
+format = '''
+$username@$hostname\[$localip\] in $directory $shlvl$singularity$kubernetes$vcsh$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$docker_context$package$c$cmake$cobol$dart$deno$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nim$nodejs$ocaml$perl$php$pulumi$purescript$python$rlang$red$ruby$rust$scala$swift$terraform$vlang$vagrant$zig$buf$nix_shell$conda$spack$memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$shell$character
+'''
+add_newline = true
+
+[username]
+format = '[$user]($style)'
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format = '[$hostname]($style)'
+
+[localip]
+disabled = false
+ssh_only = false
+format = '[$localipv4]($style)'
+
+[directory]
+style = "cyan"
+read_only = " 🔒"
+format = '[$path]($style)[$read_only]($read_only_style)'
+repo_root_format = '[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)'
 
 [character]
 success_symbol = "[❯](bold purple)"
@@ -13,12 +35,8 @@ discharging_symbol = ""
 [conda]
 symbol = " "
 
-[directory]
-style = "cyan"
-read_only = " 🔒"
-
-[docker]
-symbol = " "
+# [docker]
+# symbol = " "
 
 [elixir]
 symbol = " "
@@ -93,3 +111,10 @@ symbol = " "
 
 [status]
 disabled = false
+
+[gcloud]
+disabled = true
+
+[aws]
+symbol = " "
+

@@ -43,6 +43,7 @@ in
       whois
       # editor
       kakoune
+      starship
     ];
 
     # Starship is a fast and featureful shell prompt
@@ -113,6 +114,7 @@ in
       };
     variables = {
       TERM = "xterm-256color";
+      TERMINAL = "alacritty";
       # perhaps better set this in user session variables
       EDITOR = "${pkgs.kakoune}/bin/kak";
       AGENDA = "~/.agenda.org";
