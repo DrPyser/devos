@@ -117,8 +117,8 @@ in
       TERMINAL = "alacritty";
       # perhaps better set this in user session variables
       EDITOR = "${pkgs.kakoune}/bin/kak";
-      AGENDA = "~/.agenda.org";
-      # AGENDACMD = "${pkgs.kakoune}/bin/kak -s agenda ${config.environment.variables.AGENDA}";
+      # AGENDA = "~/.agenda.org";
+      # # AGENDACMD = "${pkgs.kakoune}/bin/kak -s agenda ${config.environment.variables.AGENDA}";
     };
     binsh = "${pkgs.dash}/bin/dash";
   };
@@ -164,21 +164,24 @@ in
     '';
 
   };
+  # shell config, could extra to separate profile
   programs.fish = {
     enable = true;
     vendor.config.enable = true;
     vendor.completions.enable = true;
     vendor.functions.enable = true;
     interactiveShellInit = ''
+      starship init fish | source
       direnv hook fish | source
       any-nix-shell fish | source
+      # atuin shell history. configured through home manager user profiles.
     '';
     loginShellInit = ''
       # log into default tmux session
       if not set -q TMUX
         # replace login shell with tmux session
         exec tmux new -t login -A -s login\; \
-        neww -t login:agenda -S -n agenda $AGENDACMD
+        # tmux session setup configured through tmux user service in tmux profile
       end
     '';
     promptInit = ''
@@ -189,10 +192,10 @@ in
       )
       set_color normal
       echo -n -s "$nix_shell_info ~>"
-      starship init fish | source
     '';
   };
 
+  # alternative shell config
   programs.bash = {
     # Enable starship
     promptInit = ''
