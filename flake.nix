@@ -57,11 +57,18 @@
     , deploy
     , ...
     } @ inputs:
+    let
+      fup = digga.inputs.flake-utils-plus;
+      supportedSystems = [ fup.lib.system.x86_64-linux ];
+      # nixpkgs reference to use directly in flake
+      pkgs = self.pkgs.x86_64-linux.nixos;
+    in
     digga.lib.mkFlake
       {
-        inherit self inputs;
+        inherit self inputs supportedSystems;
 
-        supportedSystems = [ "x86_64-linux" ];
+        lib = import ./lib { lib = digga.inputs.flake-utils-plus.lib // digga.lib // nixos.lib; };
+
         channelsConfig = { allowUnfree = true; };
 
         channels = {
@@ -77,7 +84,6 @@
           latest = { };
         };
 
-        lib = import ./lib { lib = digga.lib // nixos.lib; };
 
         sharedOverlays = [
           (final: prev: {
@@ -108,6 +114,7 @@
             /* set host specific properties here */
             NixOS = { };
             drpyser-thinkpad = { };
+            champlain-thoughbook = { };
           };
           importables = rec {
             profiles = digga.lib.rakeLeaves ./profiles // {
@@ -116,6 +123,7 @@
             suites = with profiles; rec {
               base = [ core users.nixos users.root ];
               laptop = base ++ [ graphical.i3 mandb users.drpyser tmux ];
+              server = base ++ [ mandb tmux sshd ];
             };
           };
         };
@@ -144,5 +152,12 @@
 
         deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations { };
 
+        formatter.x86_64-linux = pkgs.nixfmt;
+
       };
+  # // fup.lib.eachSystem supportedSystems (system: let
+  #   pkgs = import nixos { inherit system; };
+  # in {
+  #   formatter.${system} = pkgs.nixfmt;
+  # });
 }

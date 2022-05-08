@@ -68,6 +68,8 @@ in
       TMUX_CONF = "/etc/tmux.conf";
       SHELL = "${pkgs.fish}/bin/fish";
       TMUX_LOGIN_CONF = builtins.toString ./login.conf;
+      MONITOR = "${pkgs.htop}/bin/htop";
+      AGENDACMD = "${pkgs.kakoune}/bin/kak $$AGENDA";
     };
     reload = ''
       ${pkgs.tmux}/bin/tmux source-file $${TMUX_CONF}

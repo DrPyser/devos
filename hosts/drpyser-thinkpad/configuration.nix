@@ -90,7 +90,7 @@
     # 127.0.0.2 viachicago.local ipfs.local
     # 127.0.0.1 viachicago.local *.localhost
   '';
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
   # systemd DNS resolver
   # Currently breaks system
   #  services.resolved.enable = true;
