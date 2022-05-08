@@ -60,7 +60,7 @@ in
 
   # systemd service to start tmux server as early as possible
   # TODO: would be more useful to start session with specific configuration
-  systemd.services.tmux = {
+  systemd.user.services.tmux = {
     wantedBy = [ "multi-user.target" ];
     #      after = [ "default.target" ];
     description = "tmux server process";
@@ -75,15 +75,15 @@ in
     serviceConfig = {
       Type = "forking";
       ExecStart = ''
-        ${pkgs.tmux}/bin/tmux start-server\;\
-        source-file $$TMUX_LOGIN_CONF
+        ${pkgs.tmux}/bin/tmux start-server;source-file $$TMUX_LOGIN_CONF
       '';
       ExecStop = ''
         ${pkgs.tmux}/bin/tmux kill-server
       '';
     };
-    enable = true;
+    enable = false;
   };
+  # add config to start per-user services for selected users? Or rely on user profile?
 
   environment.variables = {
     TMUX_TERMINAL_CONF = builtins.toString ./terminal.conf;
